@@ -41,9 +41,11 @@ export class SearchComponent implements OnInit {
     }
 
     search() {
-        this.weatherInfo = null;
-        this.noDataFound = false;
-        this.router.navigate(['search', this.searchModel]);
+        if (this.searchModel && this.searchModel != '') {
+            this.weatherInfo = null;
+            this.noDataFound = false;
+            this.router.navigate(['search', this.searchModel]);
+        }
     }
 
 }

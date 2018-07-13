@@ -52,7 +52,9 @@ export class HomepageComponent implements OnInit {
     }
 
     gotoSearchPage() {
-        this.router.navigate(['search', this.searchModel]);
+        if (this.searchModel && this.searchModel != '') {
+            this.router.navigate(['search', this.searchModel]);
+        }
     }
 
 }
