@@ -1,3 +1,17 @@
-<p>
-  search works!
-</p>
+<form (submit)="search()" class="mt-4 mb-3">
+  <div class="form-group">
+    <label for="Search">Search:</label>
+    <input type="text" class="form-control" [(ngModel)]="searchModel" id="Search" placeholder="Search" name="Search" required>
+  </div>
+  <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+<div *ngIf="!weatherInfo && !noDataFound">
+    <img src="https://cdnjs.cloudflare.com/ajax/libs/galleriffic/2.0.1/css/loader.gif">
+</div>
+<div *ngIf="noDataFound">
+    Sorry no data found
+</div>
+<div class="mb-4 float-left col-md-12">
+    <app-weather [configuration]="configuration" [weatherInfo]="weatherInfo" *ngIf="weatherInfo && !noDataFound"></app-weather>
+</div>

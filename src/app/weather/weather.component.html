@@ -1,22 +1,29 @@
+<div *ngIf="!configuration && !weatherInfo">
+    <img src="https://cdnjs.cloudflare.com/ajax/libs/galleriffic/2.0.1/css/loader.gif">
+</div>
+<div *ngIf="!configuration && weatherInfo" class="mt-4">
+    <h1>Weather Details For: {{weatherInfo.title}}, {{weatherInfo.parent.title}}</h1>
+</div>
+
 <!-- short descripion-->
-<div *ngIf="configuration.shortDetails && !configuration.fullDetails" class="col-md-4 float-left">
+<div *ngIf="configuration && configuration.shortDetails && !configuration.fullDetails" class="col-md-4 float-left mb-2">
     <div class="card" style="width:100%" *ngFor="let weather of weatherDetails">
-        <img class="card-img-top" [src]='"https://www.metaweather.com/static/img/weather/" + weather.weather_state_abbr +
+        <img class="card-img-top pt-2" [src]='"https://www.metaweather.com/static/img/weather/" + weather.weather_state_abbr +
         ".svg"' [alt]="weather.weather_state_name" [title]="weather.weather_state_name" style="height: 150px">
         <div class="card-body">
             <h4 class="card-title">{{weatherInfo.title}}, {{weatherInfo.parent.title}}</h4>
             <p class="card-text">Temperature: {{weather.the_temp | number:'1.0-0'}}</p>
             <p class="card-text">Maxium Temperature: {{weather.max_temp | number:'1.0-0'}}</p>
             <p class="card-text">Minimum Temperature: {{weather.min_temp | number:'1.0-0'}}</p>
-            <a href="#" class="btn btn-primary">See Details</a>
+            <a [routerLink]='"weather/"+weatherInfo.woeid' class="btn btn-primary">See Details</a>
         </div>
     </div>
 </div>
-<!-- details description-->
-<div *ngIf="!configuration.shortDetails && configuration.fullDetails" class="col-md-12">
-    <div class="card" style="width:100%" *ngFor="let weather of weatherDetails">
+<!-- details description with configuration -->
+<div *ngIf="configuration && !configuration.shortDetails && configuration.fullDetails" class="col-md-12  float-left  mb-2">
+    <div class="card-container" style="width:100%" *ngFor="let weather of weatherDetails">
         <img class="card-img-top" [src]='"https://www.metaweather.com/static/img/weather/" + weather.weather_state_abbr +
-        ".svg"' [alt]="weather.weather_state_name" [title]="weather.weather_state_name" style="height: 150px">
+        ".svg"' [alt]="weather.weather_state_name" [title]="weather.weather_state_name" style="height: 250px">
         <div class="card-body">
             <h4 class="card-title">{{weatherInfo.title}}, {{weatherInfo.parent.title}}</h4>
             <p class="card-text">Date: {{weather.applicable_date | date}}</p>
@@ -25,6 +32,24 @@
             <p class="card-text">Maxium Temperature: {{weather.max_temp | number:'1.0-0'}}</p>
             <p class="card-text">Minimum Temperature: {{weather.min_temp | number:'1.0-0'}}</p>
             <p class="card-text">Humidity: {{weather.humidity | number:'1.0-0'}}</p>
+        </div>
+    </div>
+</div>
+<!-- details description without configuration-->
+<div *ngIf="!configuration" class="float-left mb-4 mt-4">
+    <div *ngFor="let weather of weatherDetails" class="col-md-4 float-left mb-4 pr-2">
+        <div class="card">
+            <img class="card-img-top pt-2" [src]='"https://www.metaweather.com/static/img/weather/" + weather.weather_state_abbr +
+        ".svg"' [alt]="weather.weather_state_name" [title]="weather.weather_state_name" style="height: 150px">
+            <div class="card-body">
+                <h4 class="card-title">{{weatherInfo.title}}, {{weatherInfo.parent.title}}</h4>
+                <p class="card-text">Date: {{weather.applicable_date | date}}</p>
+                <p class="card-text">Weather Status: {{weather.weather_state_name}}</p>
+                <p class="card-text">Temperature: {{weather.the_temp | number:'1.0-0'}}</p>
+                <p class="card-text">Maxium Temperature: {{weather.max_temp | number:'1.0-0'}}</p>
+                <p class="card-text">Minimum Temperature: {{weather.min_temp | number:'1.0-0'}}</p>
+                <p class="card-text">Humidity: {{weather.humidity | number:'1.0-0'}}</p>
+            </div>
         </div>
     </div>
 </div>

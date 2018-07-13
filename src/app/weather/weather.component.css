@@ -1,0 +1,15 @@
+.card-container{
+    width: 100%;
+    border: 1px dashed #ececec;
+    float: left;
+}
+.card-container .card-img-top{
+    width: 30%;
+    float: left;
+    padding: 30px;
+}
+.card-container .card-body{
+    float: left;
+    width: auto;
+    margin-left: 105px;
+}

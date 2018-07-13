@@ -1,4 +1,15 @@
-<div class="col-md-12">
+<div class="col-md-12 float-left pt-3 pb-4">
+    <div *ngIf="!dataIstanbul || !dataBerlin || !dataDublin ||!dataHelsinki || !dataLondon || !dataVancouver ">
+        <img src="https://cdnjs.cloudflare.com/ajax/libs/galleriffic/2.0.1/css/loader.gif">
+    </div>
+    <form (submit)="gotoSearchPage()" class="mb-3">
+        <div class="form-group">
+            <label for="Search">Search:</label>
+            <input type="text" class="form-control" [(ngModel)]="searchModel" id="Search" placeholder="Search" name="Search" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
     <app-weather [configuration]="configuration" [weatherInfo]="dataIstanbul" *ngIf="dataIstanbul"></app-weather>
     <app-weather [configuration]="configuration" [weatherInfo]="dataBerlin" *ngIf="dataBerlin"></app-weather>
     <app-weather [configuration]="configuration" [weatherInfo]="dataDublin" *ngIf="dataDublin"></app-weather>

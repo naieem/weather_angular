@@ -9,15 +9,18 @@ export class DataBearerService {
     constructor(private http: HttpClient) {
     }
 
-    // =======================================
-    // get todays weather of city ============
-    // =======================================
     public getWeather(city: string): Observable<any> {
         return this.http.get(this.apiUrl + '?command=search&keyword=' + city).switchMap((response: any) => {
-            debugger;
+
             return this.http.get(this.apiUrl + '?command=location&woeid=' + response[0].woeid);
         }).map((response: any) => {
-            debugger;
+
+            return response;
+        });
+    }
+
+    public getWeatherByWoeid(weid: any): Observable<any>{
+        return this.http.get(this.apiUrl + '?command=location&woeid=' + weid).map((response: any)=>{
             return response;
         });
     }

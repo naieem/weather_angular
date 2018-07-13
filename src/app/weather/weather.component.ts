@@ -1,4 +1,6 @@
 import {Component, OnInit, Input} from '@angular/core';
+import {Router, ActivatedRoute} from '@angular/router';
+import {DataBearerService} from '../databearer.service';
 import * as _ from 'lodash';
 @Component({
     selector: 'app-weather',
@@ -10,23 +12,38 @@ export class WeatherComponent implements OnInit {
     @Input() configuration: any;
     weatherDetails: any;
 
-    constructor() {
+    constructor(private route: ActivatedRoute,
+                private router: Router, private databearer: DataBearerService) {
+        this.route.params.subscribe((params: any) => {
+            
+            if (params.woeid) {
+                this.databearer.getWeatherByWoeid(params.woeid).subscribe((response: any) => {
+
+                    if (response && response.consolidated_weather) {
+                        this.weatherInfo = response;
+                        this.weatherDetails = this.weatherInfo.consolidated_weather;
+                    }
+                });
+            }
+        });
     }
 
     ngOnInit() {
         this.weatherDetails = [];
-        if (this.configuration.onlyToday) {
-            const todaysDate = new Date();
-            const weatherDetails = this.weatherDetails;
-            _.forEach(this.weatherInfo.consolidated_weather, function (value) {
-                let otherDate = new Date(value.applicable_date);
-                if (todaysDate.toDateString() === otherDate.toDateString()) {
-                    debugger;
-                    weatherDetails.push(value);
-                }
-            });
-        } else {
-            this.weatherDetails = this.weatherInfo.consolidated_weather;
+        if (this.configuration && this.weatherInfo) {
+            if (this.configuration.onlyToday) {
+                const todaysDate = new Date();
+                const weatherDetails = this.weatherDetails;
+                _.forEach(this.weatherInfo.consolidated_weather, function (value) {
+                    let otherDate = new Date(value.applicable_date);
+                    if (todaysDate.toDateString() === otherDate.toDateString()) {
+
+                        weatherDetails.push(value);
+                    }
+                });
+            } else {
+                this.weatherDetails = this.weatherInfo.consolidated_weather;
+            }
         }
     }
 

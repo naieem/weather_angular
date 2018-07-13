@@ -1,6 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
+import {FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {DataBearerService} from './databearer.service';
 import {AppComponent} from './app.component';
@@ -17,7 +18,7 @@ const appRoutes: Routes = [
         component: HomepageComponent
     },
     {
-        path: 'weather:woeid',
+        path: 'weather/:woeid',
         component: WeatherComponent
     },
     {
@@ -46,7 +47,8 @@ const appRoutes: Routes = [
             }
         ),
         BrowserModule,
-        HttpClientModule
+        HttpClientModule,
+        FormsModule
     ],
     providers: [DataBearerService],
     bootstrap: [AppComponent]

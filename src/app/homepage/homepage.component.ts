@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 import {DataBearerService} from '../databearer.service';
 @Component({
     selector: 'app-homepage',
@@ -13,7 +14,9 @@ export class HomepageComponent implements OnInit {
     dataHelsinki: any;
     dataDublin: any;
     dataVancouver: any;
-    constructor(private databearer: DataBearerService) {
+    searchModel: any;
+
+    constructor(private router: Router, private databearer: DataBearerService) {
     }
 
     ngOnInit() {
@@ -23,29 +26,33 @@ export class HomepageComponent implements OnInit {
             onlyToday: true
         };
         this.databearer.getWeather('Istanbul').subscribe((response: any) => {
-            debugger;
+
             this.dataIstanbul = response;
         });
         this.databearer.getWeather('Berlin').subscribe((response: any) => {
-            debugger;
+
             this.dataBerlin = response;
         });
         this.databearer.getWeather('London').subscribe((response: any) => {
-            debugger;
+
             this.dataLondon = response;
         });
         this.databearer.getWeather('Helsinki').subscribe((response: any) => {
-            debugger;
+
             this.dataHelsinki = response;
         });
         this.databearer.getWeather('Dublin').subscribe((response: any) => {
-            debugger;
+
             this.dataDublin = response;
         });
         this.databearer.getWeather('Vancouver').subscribe((response: any) => {
-            debugger;
+
             this.dataVancouver = response;
         });
+    }
+
+    gotoSearchPage() {
+        this.router.navigate(['search', this.searchModel]);
     }
 
 }
