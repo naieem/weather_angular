@@ -1,0 +1,30 @@
+<!-- short descripion-->
+<div *ngIf="configuration.shortDetails && !configuration.fullDetails" class="col-md-4 float-left">
+    <div class="card" style="width:100%" *ngFor="let weather of weatherDetails">
+        <img class="card-img-top" [src]='"https://www.metaweather.com/static/img/weather/" + weather.weather_state_abbr +
+        ".svg"' [alt]="weather.weather_state_name" [title]="weather.weather_state_name" style="height: 150px">
+        <div class="card-body">
+            <h4 class="card-title">{{weatherInfo.title}}, {{weatherInfo.parent.title}}</h4>
+            <p class="card-text">Temperature: {{weather.the_temp | number:'1.0-0'}}</p>
+            <p class="card-text">Maxium Temperature: {{weather.max_temp | number:'1.0-0'}}</p>
+            <p class="card-text">Minimum Temperature: {{weather.min_temp | number:'1.0-0'}}</p>
+            <a href="#" class="btn btn-primary">See Details</a>
+        </div>
+    </div>
+</div>
+<!-- details description-->
+<div *ngIf="!configuration.shortDetails && configuration.fullDetails" class="col-md-12">
+    <div class="card" style="width:100%" *ngFor="let weather of weatherDetails">
+        <img class="card-img-top" [src]='"https://www.metaweather.com/static/img/weather/" + weather.weather_state_abbr +
+        ".svg"' [alt]="weather.weather_state_name" [title]="weather.weather_state_name" style="height: 150px">
+        <div class="card-body">
+            <h4 class="card-title">{{weatherInfo.title}}, {{weatherInfo.parent.title}}</h4>
+            <p class="card-text">Date: {{weather.applicable_date | date}}</p>
+            <p class="card-text">Weather Status: {{weather.weather_state_name}}</p>
+            <p class="card-text">Temperature: {{weather.the_temp | number:'1.0-0'}}</p>
+            <p class="card-text">Maxium Temperature: {{weather.max_temp | number:'1.0-0'}}</p>
+            <p class="card-text">Minimum Temperature: {{weather.min_temp | number:'1.0-0'}}</p>
+            <p class="card-text">Humidity: {{weather.humidity | number:'1.0-0'}}</p>
+        </div>
+    </div>
+</div>
