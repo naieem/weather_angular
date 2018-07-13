@@ -15,7 +15,7 @@ export class WeatherComponent implements OnInit {
     constructor(private route: ActivatedRoute,
                 private router: Router, private databearer: DataBearerService) {
         this.route.params.subscribe((params: any) => {
-            
+
             if (params.woeid) {
                 this.databearer.getWeatherByWoeid(params.woeid).subscribe((response: any) => {
 
