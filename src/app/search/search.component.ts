@@ -12,12 +12,14 @@ export class SearchComponent implements OnInit {
     configuration: any;
     searchModel: any;
     noDataFound: boolean;
+    activeSearchModel: any;
 
     constructor(private route: ActivatedRoute,
                 private router: Router, private databearer: DataBearerService) {
         this.route.params.subscribe((params: any) => {
 
             if (params.keyword) {
+                this.activeSearchModel = params.keyword;
                 this.databearer.getWeather(params.keyword).subscribe((response: any) => {
 
                     if (response && response.consolidated_weather) {
@@ -41,7 +43,7 @@ export class SearchComponent implements OnInit {
     }
 
     search() {
-        if (this.searchModel && this.searchModel != '') {
+        if (this.searchModel && this.searchModel != '' && (this.searchModel != this.activeSearchModel)) {
             this.weatherInfo = null;
             this.noDataFound = false;
             this.router.navigate(['search', this.searchModel]);
